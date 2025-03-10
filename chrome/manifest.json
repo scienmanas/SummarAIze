@@ -1,10 +1,11 @@
 {
-  "name": "SummarAIze",
-  "description": "Tired of reading long articles? SummarAIze uses AI to break down webpages into key points, saving you time and effort! Just install the extension, enter your API key (OpenAI, Gemini, or Claude), and get concise, easy-to-read summaries in seconds.",
-  "version": "1.0.0",
   "manifest_version": 3,
-  "action": {
-    "default_popup": "popup.html",
-    "default_icon": ""
-  }
+  "name": "Summaraize",
+  "version": "1.0.0",
+  "description": "Summarize the content of the page",
+  "action": {},
+  "background": {
+    "servive_worker": ""
+  },
+  "permissions": ["storage", "scripting", "activeTab"]
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chat with Page Content</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 10px;
+      }
+      #chatLog {
+        height: 200px;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+        padding: 5px;
+        margin-bottom: 10px;
+      }
+      #userInput {
+        width: 80%;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Page Chat</h2>
+    <div id="chatLog"></div>
+    <input type="text" id="userInput" placeholder="Type your message" />
+    <button id="sendBtn">Send</button>
+    <br/><br/>
+    <button id="settingsBtn">Settings</button>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

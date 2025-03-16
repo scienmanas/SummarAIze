@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "esnext",
+    "module": "NodeNext",
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
   },
   "include": ["src/**/*"]
 }

@@ -5,8 +5,17 @@ import copyWebpackPlugin from 'copy-webpack-plugin';
 import WebpackBar from 'webpackbar';
 import FriendlyErrorsWebpackPlugin from '@soda/friendly-errors-webpack-plugin';
 
+// Determine current environment
+const NODE_ENV = process.env.NODE_ENV === "production" ? "production" : "development";
+
+// Log a friendly message
+console.log(`\n==============================`);
+console.log(`  Building in ${NODE_ENV.toUpperCase()} mode`);
+console.log(`==============================\n`);
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 
 // Dynamically generate TS entries
 const tsFiles = fg.sync('./src/**/*.ts');
@@ -18,19 +27,19 @@ const entries = tsFiles.reduce((acc, file) => {
 
 
 export default {
-    mode: process.env.NODE_ENV === "production" ? "production" : "development",
+    mode: NODE_ENV === "production" ? "production" : "development",
     entry: entries,
     output: {
         filename: '[name].js',
         // Output goes to build/src or dev_build/src
         path: path.resolve(
             __dirname,
-            process.env.NODE_ENV === "production" ? "build" : "dev_build",
+            NODE_ENV === "production" ? "build" : "dev_build",
             'src'
         ),
     },
     resolve: {
-        extensions: ['.ts', '.js']
+        extensions: ['.ts', '.js'],
     },
     module: {
         rules: [
@@ -49,7 +58,7 @@ export default {
                 // Copy the public folder
                 {
                     from: path.resolve(__dirname, 'public'),
-                    to: path.resolve(__dirname, process.env.NODE_ENV === "production" ? "build" : "dev_build", 'public')
+                    to: path.resolve(__dirname, NODE_ENV === "production" ? "build" : "dev_build", 'public')
                 },
                 // Copy manifest.json from project root
                 {
@@ -73,5 +82,5 @@ export default {
         })
     ],
     stats: 'none',
-    devtool: process.env.NODE_ENV === "development" ? "source-map" : false
+    devtool: NODE_ENV === "development" ? "source-map" : false
 };

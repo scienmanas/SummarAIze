@@ -1,0 +1,5 @@
+.qodo
+.env
+dev_build/
+build/
+node_modules/

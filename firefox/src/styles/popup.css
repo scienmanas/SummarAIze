@@ -1,0 +1,132 @@
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    margin: 0;
+    padding: 12px;
+    width: 350px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+  }
+  
+  
+  main{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .heading-and-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    gap: 5px;
+  }
+  
+  h2 {
+    font-weight: 800;
+    margin: 0;
+    padding: 0;
+    color: #1a73e8;
+    height: fit-content;
+    width: fit-content;
+  }
+  
+  .description {
+    margin: 0;
+    padding: 0;
+    height: fit-content;
+    width: fit-content;
+    text-decoration: underline;
+  }
+  
+  
+  .description-and-setting-clear {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .buttons-container {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+  }
+  
+  .icon-button {
+    padding: 2px;
+    background-color: transparent;
+    width: fit-content;
+    height: fit-content;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .icon-button:hover {
+    background-color: transparent;
+    animation: toAndFro 0.5s ease-in-out infinite alternate;
+  }
+  
+  @keyframes toAndFro {
+    0% {
+      transform: rotate(0);
+    }
+    25%{
+      transform: rotate(10deg);
+    }
+    50% {
+      transform: rotate(0deg);
+    }
+    75% {
+      transform: rotate(-10deg);
+    }
+    100% {
+      transform: rotate(0);
+    }
+  }
+  
+  
+  #chatLog {
+    height: 320px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 12px;
+    background-color: #f9f9f9;
+  }
+  
+  #chatLog div {
+    margin-bottom: 8px;
+    padding: 8px;
+    border-radius: 4px;
+  }
+  
+  #chatLog div:nth-child(odd) {
+    background-color: #e3f2fd;
+  }
+  
+  .input-area {
+    display: flex;
+  }
+  
+  #userInput {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 8px;
+  }
+  
+  
+  #sendBtn {
+    padding: 8px;
+    font-weight: 900;
+    background-color: #1e40af;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+  }

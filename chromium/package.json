@@ -1,0 +1,42 @@
+{
+  "name": "summaraize",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "license": "AGPL-version-3.0",
+  "private": false,
+  "engines": {
+    "node": ">= 14.0.0",
+    "npm": ">= 6.0.0"
+  },
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": "",
+  "keywords": [],
+  "author": {
+    "name": "Manas",
+    "email": "iamscientistmanas@gmail.com",
+    "url": "https://scienmanas.xyz"
+  },
+  "contributors": [],
+  "scripts": {
+    "dev": "rm -rf dev_build  && webpack --watch",
+    "clean": "rm -rf build && rm -rf dev_build && clear",
+    "build": "rm -rf build && webpack"
+  },
+  "devDependencies": {
+    "@soda/friendly-errors-webpack-plugin": "^1.8.1",
+    "@types/chrome": "^0.0.309",
+    "copy-webpack-plugin": "^13.0.0",
+    "fast-glob": "^3.3.3",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.8.2",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1",
+    "webpackbar": "^7.0.0"
+  }
+}

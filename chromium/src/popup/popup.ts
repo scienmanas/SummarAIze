@@ -106,6 +106,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // clear button
   clearBtn.addEventListener("click", () => {
-    chatHistory;
+    chatHistory;console.log("DOMContentLoaded event triggered");
+console.log("Required DOM elements:", chatLog, userInput, sendBtn, settingsBtn);
+console.log("API Key:", apiKey);
+console.log("LLM:", llm);
+console.log("Chat History:", chatHistory);
   });
 });

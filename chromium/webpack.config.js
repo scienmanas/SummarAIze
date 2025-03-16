@@ -26,7 +26,7 @@ const entries = tsFiles.reduce((acc, file) => {
 }, {})
 
 
-export default {
+const config = {
     mode: NODE_ENV === "production" ? "production" : "development",
     entry: entries,
     output: {
@@ -84,3 +84,6 @@ export default {
     stats: 'none',
     devtool: NODE_ENV === "development" ? "source-map" : false
 };
+
+
+export default config;

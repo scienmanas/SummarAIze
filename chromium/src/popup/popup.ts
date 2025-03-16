@@ -1,15 +1,18 @@
-import { callGeminiAPI, callOpenAIAPI } from "../utils/genai.js";
-import { appendMessage } from "../utils/appendMessage.js";
-import { fetchPageContent } from "../utils/fetchPageContent.js";
+import { callGeminiAPI, callOpenAIAPI } from "../utils/genai";
+import { appendMessage } from "../utils/appendMessage";
+import { fetchPageContent } from "../utils/fetchPageContent";
 
-// Interface for messages exchanged between popup and content script
-interface Message {
-  type: string;
-  payload?: any;
+interface chatHistoryGemini {
+  role: "user" | "model";
+  parts: { text: string }[];
 }
 
+interface chatHistoryOpenAI {
+  role: "user" | "assistant";
+  content: string;
+}
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   // Get all the required elements
   const chatLog = document.getElementById("chatLog") as HTMLDivElement;
   const userInput = document.getElementById("userInput") as HTMLInputElement;
@@ -17,6 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const settingsBtn = document.getElementById(
     "settingsBtn"
   ) as HTMLButtonElement;
+  const clearBtn = document.getElementById("clearBtn") as HTMLButtonElement;
+  const chatHistory: chatHistoryGemini[] | chatHistoryOpenAI[] = [];
 
   // Check if required DOM elements exist
   if (!chatLog || !userInput || !sendBtn || !settingsBtn) {
@@ -24,10 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  console.log("okokokok")
-  const okok = fetchPageContent()
-  console.log(okok)
-  
+  const okok = fetchPageContent();
 
   // Check if the API Key and LLM is configured
   const apiKey = localStorage.getItem("apiKey");
@@ -41,11 +43,52 @@ document.addEventListener("DOMContentLoaded", () => {
       : window.open(chrome.runtime.getURL("settings/settings.html"), "_blank");
   }
 
-  // *********************** functions
-
-  // function to call LLM
-
   // *********************** Event Listeners
+  // Send button
+  sendBtn.addEventListener("click", async () => {
+    // Get the user message & check if it's empty
+    const userMessage = userInput.value.trim();
+    if (!userMessage) return;
+
+    // Append the user message to chat log & make the input empty
+    appendMessage({ sender: "You", message: userMessage, element: chatLog });
+    userInput.value = "";
+
+    try {
+      // Logging
+      appendMessage({
+        sender: "System",
+        message: "Fetching page content...",
+        element: chatLog,
+      });
+
+      // Fetch the current page content
+      const pageContent = await fetchPageContent();
+
+      // Logging
+      appendMessage({
+        sender: "System",
+        message: pageContent as string,
+        element: chatLog,
+      });
+
+      // Logging
+      appendMessage({
+        sender: "System",
+        message: "Page content fetched",
+        element: chatLog,
+      });
+
+      const llm = localStorage.getItem("llm");
+      const apiKey = localStorage.getItem("apiKey");
+      if (llm && apiKey) return;
+      if (llm === "gemini") {
+        if (!chatHistory) {
+        }
+      }
+    } catch (error) {}
+  });
+
   // User input
   userInput.addEventListener("keypress", (event: KeyboardEvent) => {
     if (event.key === "Enter" && userInput.value.trim() && !event.shiftKey) {
@@ -59,5 +102,10 @@ document.addEventListener("DOMContentLoaded", () => {
     chrome.runtime.openOptionsPage
       ? chrome.runtime.openOptionsPage()
       : window.open(chrome.runtime.getURL("settings/settings.html"), "_blank");
+  });
+
+  // clear button
+  clearBtn.addEventListener("click", () => {
+    chatHistory;
   });
 });

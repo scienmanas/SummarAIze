@@ -7,7 +7,7 @@ export function appendMessage({
   message: string;
   element: HTMLDivElement;
 }): void {
-  const messageDiv = document.createElement("duv");
+  const messageDiv = document.createElement("div");
   messageDiv.textContent = `${sender}: ${message}`;
   element.appendChild(messageDiv);
   element.scrollTop = element.scrollHeight;

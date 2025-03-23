@@ -1,6 +1,6 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
-import fg from 'fast-glob';
+import fs from 'fs';
 import copyWebpackPlugin from 'copy-webpack-plugin';
 import WebpackBar from 'webpackbar';
 import FriendlyErrorsWebpackPlugin from '@soda/friendly-errors-webpack-plugin';
@@ -18,17 +18,36 @@ const __dirname = path.dirname(__filename);
 
 
 // Dynamically generate TS entries
-const tsFiles = fg.sync('./src/**/*.ts');
-const entries = tsFiles.reduce((acc, file) => {
-    const entryKey = file.replace('./src/', '').replace(/\.ts$/, '');
-    acc[entryKey] = file;
-    return acc;
-}, {})
+function getAllTsFiles(dir, extensions) {
+    let results = [];
+    const list = fs.readdirSync(dir);
+    list.forEach((file) => {
+        const filePath = path.join(dir, file);
+        const stat = fs.statSync(filePath);
+        if (stat && stat.isDirectory())
+            results = results.concat(getAllTsFiles(filePath, extensions));
+        else if (extensions.some((ext) => file.endsWith(ext)))
+            results.push(filePath);
+    })
+    return results
+}
 
+function getEntries() {
+    const srcDir = path.resolve(__dirname, 'src');
+    const files = getAllTsFiles(srcDir, ['.ts', '.js']);
+    const entries = files.reduce((acc, file) => {
+        // Create a key relative relative to the src folder and remove the extension
+        const relativePath = path.relative(srcDir, file);
+        const entryKey = relativePath.replace(/\.ts$/, '');
+        acc[entryKey] = file;
+        return acc;
+    }, {})
+    return entries
+}
 
 const config = {
     mode: NODE_ENV === "production" ? "production" : "development",
-    entry: entries,
+    entry: () => getEntries(),
     output: {
         filename: '[name].js',
         // Output goes to build/src or dev_build/src
@@ -37,9 +56,13 @@ const config = {
             NODE_ENV === "production" ? "build" : "dev_build",
             'src'
         ),
+        clean: true,
     },
     resolve: {
         extensions: ['.ts', '.js'],
+        alias: {
+            '@': path.resolve(__dirname),
+        }
     },
     module: {
         rules: [

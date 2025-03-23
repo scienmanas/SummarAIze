@@ -1,6 +1,6 @@
 import { callGeminiAPI, callOpenAIAPI } from "../utils/genai";
-import { appendMessage } from "../utils/appendMessage";
-import { fetchPageContent } from "../utils/fetchPageContent";
+import { appendMessage } from "@/src/utils/appendMessage";
+import { fetchPageContent } from "@/src/utils/fetchPageContent";
 
 interface chatHistoryGemini {
   role: "user" | "model";

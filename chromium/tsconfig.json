@@ -1,13 +1,22 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "Preserve",
-    "moduleResolution": "bundler",
+    "module": "esnext",
     "outDir": "./dist",
     "rootDir": "./src",
+    "resolveJsonModule": true,
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
+    "allowJs": true,
     "strict": true,
+    "noEmit": false,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "incremental": true,
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }

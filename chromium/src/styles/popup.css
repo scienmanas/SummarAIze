@@ -2,15 +2,15 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
   margin: 0;
   padding: 12px;
-  width: 350px;
-  height: 450px;
+  width: 450px;
+  height: 520px;
   display: flex;
   flex-direction: column;
   gap: 0px;
 }
 
 
-main{
+main {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -74,40 +74,25 @@ h2 {
   0% {
     transform: rotate(0);
   }
-  25%{
+
+  25% {
     transform: rotate(10deg);
   }
+
   50% {
     transform: rotate(0deg);
   }
+
   75% {
     transform: rotate(-10deg);
   }
+
   100% {
     transform: rotate(0);
   }
 }
 
 
-#chatLog {
-  height: 320px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 10px;
-  margin-bottom: 12px;
-  background-color: #f9f9f9;
-}
-
-#chatLog div {
-  margin-bottom: 8px;
-  padding: 8px;
-  border-radius: 4px;
-}
-
-#chatLog div:nth-child(odd) {
-  background-color: #e3f2fd;
-}
 
 .input-area {
   display: flex;
@@ -129,4 +114,32 @@ h2 {
   color: white;
   cursor: pointer;
   border-radius: 5px;
+}
+
+/* Chat Log */
+
+#chatLog {
+  height: 350px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 12px;
+  background-color: #f9f9f9;
+}
+
+#chatLog div {
+  margin-bottom: 8px;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+#chatLog div:nth-child(even) {
+  background-color: #e3f2fd;
+}
+
+.user-message, assistant-message {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }

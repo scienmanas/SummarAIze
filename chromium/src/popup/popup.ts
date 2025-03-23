@@ -1,15 +1,20 @@
-import { callGeminiAPI, callOpenAIAPI } from "../utils/genai";
+import { callGeminiAPI, callOpenAIAPI } from "@/src/utils/genai";
 import { appendMessage } from "@/src/utils/appendMessage";
 import { fetchPageContent } from "@/src/utils/fetchPageContent";
 
-interface chatHistoryGemini {
+interface chatHistoryGeminiTypes {
   role: "user" | "model";
   parts: { text: string }[];
 }
 
-interface chatHistoryOpenAI {
+interface chatHistoryOpenAITypes {
   role: "user" | "assistant";
   content: string;
+}
+
+interface questionSuggestionsByAITypes {
+  placeholder: string;
+  questions: string;
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -21,15 +26,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     "settingsBtn"
   ) as HTMLButtonElement;
   const clearBtn = document.getElementById("clearBtn") as HTMLButtonElement;
-  const chatHistory: chatHistoryGemini[] | chatHistoryOpenAI[] = [];
+  let chatHistory: chatHistoryGeminiTypes[] | chatHistoryOpenAITypes[] = [];
+  let questionSuggestionsByAI: questionSuggestionsByAITypes[] = [];
 
   // Check if required DOM elements exist
   if (!chatLog || !userInput || !sendBtn || !settingsBtn) {
     console.error("Could not find required DOM elements");
     return;
   }
-
-  const okok = fetchPageContent();
 
   // Check if the API Key and LLM is configured
   const apiKey = localStorage.getItem("apiKey");
@@ -44,7 +48,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // *********************** Event Listeners
-  // Send button
+  // Send button - Incomplete
   sendBtn.addEventListener("click", async () => {
     // Get the user message & check if it's empty
     const userMessage = userInput.value.trim();
@@ -89,6 +93,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     } catch (error) {}
   });
 
+  // Option update stuff - Suggestions by ai to ask questions
+
   // User input
   userInput.addEventListener("keypress", (event: KeyboardEvent) => {
     if (event.key === "Enter" && userInput.value.trim() && !event.shiftKey) {
@@ -106,10 +112,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // clear button
   clearBtn.addEventListener("click", () => {
-    chatHistory;console.log("DOMContentLoaded event triggered");
-console.log("Required DOM elements:", chatLog, userInput, sendBtn, settingsBtn);
-console.log("API Key:", apiKey);
-console.log("LLM:", llm);
-console.log("Chat History:", chatHistory);
+    chatLog.innerHTML = "";
+    chatHistory = [];
   });
 });
